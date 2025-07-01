@@ -1,61 +1,132 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Ecommerce Platform
+
+*Your one-stop shop for modern online retail.*
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
 </p>
 
-## About Laravel
+<p align="center">
+  <img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status">
+  <img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads">
+  <img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version">
+  <img src="https://img.shields.io/packagist/l/laravel/framework" alt="License">
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Project Overview
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Ecommerce Platform is a full-featured online store solution built with Laravel, Livewire, and Tailwind CSS. It enables businesses and entrepreneurs to launch a scalable, customizable, and modern web shop. 
 
-## Learning Laravel
+- **What is it?** A web application for selling products online.
+- **Who is it for?** Small to medium businesses, startups, and developers seeking a Laravel-based ecommerce solution.
+- **What problem does it solve?** Provides a ready-to-use, extensible platform for online sales, user management, and order processing.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Tech Stack
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Backend:** Laravel 12, PHP 8.2
+- **Frontend:** Livewire, Tailwind CSS 4.1, Vite, Preline 3.1.0
+- **Database:** SQLite (default, can be changed)
+- **Main Libraries:** Filament, Livewire, Axios, Pest (testing)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installation & Setup
 
-## Laravel Sponsors
+1. **Clone the repository:**
+   ```bash
+   git clone <repo-url>
+   cd ecommerce
+   ```
+2. **Install PHP dependencies:**
+   ```bash
+   composer install
+   ```
+3. **Install Node.js dependencies:**
+   ```bash
+   npm install
+   ```
+4. **Copy environment file:**
+   ```bash
+   cp .env.example .env
+   # If .env.example is missing, create .env manually based on Laravel defaults
+   ```
+5. **Generate application key:**
+   ```bash
+   php artisan key:generate
+   ```
+6. **Run migrations:**
+   ```bash
+   php artisan migrate
+   ```
+7. **(Optional) Seed the database:**
+   ```bash
+   php artisan db:seed
+   ```
+8. **Start the development servers:**
+   ```bash
+   npm run dev
+   php artisan serve
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Running Tests
 
-### Premium Partners
+- **PHPUnit:**
+  ```bash
+  php artisan test
+  ```
+- **Pest:**
+  ```bash
+  ./vendor/bin/pest
+  ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Folder Structure
+
+```
+├── app/            # Backend application logic (Models, Http, Livewire, Filament)
+├── bootstrap/      # Laravel bootstrap files
+├── config/         # Configuration files
+├── database/       # Migrations, seeders, factories, SQLite db
+├── public/         # Public assets (index.php, images, css, js)
+├── resources/      # Views, JS, CSS
+├── routes/         # Route definitions (web.php, console.php)
+├── tests/          # Unit and feature tests
+├── vendor/         # Composer dependencies
+```
+
+## Environment & Access
+
+- Configure your `.env` file for database, mail, and other services as needed.
+- Default uses SQLite (`database/database.sqlite`).
+- For production, set up appropriate DB, mail, and cache drivers.
+
+## Features
+
+- 🛒 Product catalog & detail pages
+- 🔍 Product search & filtering
+- 🛍️ Shopping cart (add, update, remove, clear)
+- 👤 User authentication (register, login, logout)
+- 💳 Checkout & order processing
+- 📦 Order history & account info
+- 🎨 Responsive UI with Tailwind CSS & Preline
+- ⚡ Real-time updates with Livewire
+- 🧪 Unit & feature tests (PHPUnit, Pest)
+
+## Roadmap
+
+- [ ] Add payment gateway integration
+- [ ] Admin dashboard for product management
+- [ ] User reviews & ratings
+- [ ] API endpoints for mobile apps
+- [ ] Multi-language support
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Contributions are welcome! Please fork the repo and submit a pull request. 
+- Follow [Conventional Commits](https://www.conventionalcommits.org/) for commit messages.
+- Ensure all tests pass before submitting.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
