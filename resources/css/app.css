@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Test CSS to verify the file is being processed */
+.test-css {
+    color: red;
+    font-weight: bold;
+}
