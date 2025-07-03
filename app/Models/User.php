@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -49,5 +50,18 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        // Only allow users with admin role
+        if ($this->role !== 'admin') {
+            return false;
+        }
+        return true;
     }
 }

@@ -32,36 +32,35 @@
             <div>
                 <h4 class="font-semibold mb-4">Shop</h4>
                 <ul class="space-y-2 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition-colors">New Arrivals</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Trending</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Sale</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Collections</a></li>
+                    <li><a href="{{ route('product-list') }}" class="hover:text-white transition-colors">All products</a></li>
+                    <li><a href="{{ route('product-list', ['is_featured' => true]) }}" class="hover:text-white transition-colors">Trending</a></li>
+                    <li><a href="{{ route('product-list', ['on_sale' => true]) }}" class="hover:text-white transition-colors">Sale</a></li>
                 </ul>
             </div>
 
             <div>
                 <h4 class="font-semibold mb-4">Support</h4>
                 <ul class="space-y-2 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Shipping</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Returns</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Size Guide</a></li>
+                    <li><a href="{{ route('contact') }}" class="hover:text-white transition-colors">Contact Us</a></li>
+                    <li><a href="{{ route('shipping') }}" class="hover:text-white transition-colors">Shipping</a></li>
+                    <li><a href="{{ route('returns') }}" class="hover:text-white transition-colors">Returns</a></li>
+                    <li><a href="{{ route('sizeguide') }}" class="hover:text-white transition-colors">Size Guide</a></li>
                 </ul>
             </div>
 
             <div>
                 <h4 class="font-semibold mb-4">Company</h4>
                 <ul class="space-y-2 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="{{ route('about') }}" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="{{ route('careers') }}" class="hover:text-white transition-colors">Careers</a></li>
+                    <li><a href="{{ route('privacy-policy') }}" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="{{ route('terms-of-service') }}" class="hover:text-white transition-colors">Terms of Service</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 BEAUTIFY. All rights reserved. Made with ❤️ for the fashion-forward generation.</p>
+            <p>&copy; 2025 BEAUTIFY. All rights reserved. Made with ❤️ for the fashion-forward generation.</p>
         </div>
     </div>
 </footer>

@@ -26,6 +26,7 @@ class ProductList extends Component
     public $sortBy = 'newest';
     public $viewMode = 'grid'; // 'grid' or 'list'
     public $showFilters = false;
+    public $gender = '';
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -39,7 +40,30 @@ class ProductList extends Component
         'ratingFilter' => ['except' => ''],
         'sortBy' => ['except' => 'newest'],
         'viewMode' => ['except' => 'grid'],
+        'gender' => ['except' => ''],
     ];
+
+    public function mount($gender = null, $category = null)
+    {
+        if (request()->has('gender')) {
+            $this->gender = request()->get('gender');
+        } elseif ($gender) {
+            $this->gender = $gender;
+        }
+        if (request()->has('category')) {
+            $categorySlug = request()->get('category');
+        } elseif ($category) {
+            $categorySlug = $category;
+        } else {
+            $categorySlug = null;
+        }
+        if ($categorySlug) {
+            $cat = \App\Models\Category::where('slug', $categorySlug)->first();
+            if ($cat) {
+                $this->selectedCategory = $cat->id;
+            }
+        }
+    }
 
     public function updatedSearch()
     {
@@ -193,6 +217,11 @@ class ProductList extends Component
             default:
                 $query->orderBy('created_at', 'desc');
                 break;
+        }
+
+        // Apply gender filter
+        if ($this->gender) {
+            $query->where('gender', $this->gender);
         }
 
         $products = $query->paginate(12);

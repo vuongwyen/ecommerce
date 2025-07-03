@@ -42,6 +42,12 @@ class UserResource extends Resource
                     ->label('Email đã xác minh')
                     ->required(fn(Forms\Get $get) => $get('id') === null)
                     ->default(now()),
+                Forms\Components\Select::make('role')
+                    ->options([
+                        'admin' => 'Admin',
+                        'customer' => 'Customer',
+                    ])
+                    ->required(),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->minLength(8)
@@ -63,6 +69,9 @@ class UserResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('role')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

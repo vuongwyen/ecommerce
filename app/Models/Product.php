@@ -9,6 +9,7 @@ class Product extends Model
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
 
     protected $fillable = [
+        'gender',
         'category_id',
         'brand_id',
         'name',

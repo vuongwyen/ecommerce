@@ -18,7 +18,7 @@
     </style>
 
     <!-- Sticky Header -->
-    <div class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <div class="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Search Bar -->
@@ -102,6 +102,25 @@
                             Clear All
                         </button>
                         @endif
+                    </div>
+
+                    <!-- Gender Filter -->
+                    <div class="mb-6">
+                        <h4 class="text-sm font-medium text-gray-900 mb-3">Gender</h4>
+                        <div class="space-y-2">
+                            <label>
+                                <input type="radio" name="gender" value="" {{ request('gender') == '' ? 'checked' : '' }}>
+                                All Genders
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="male" {{ request('gender') == 'male' ? 'checked' : '' }}>
+                                Male
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="female" {{ request('gender') == 'female' ? 'checked' : '' }}>
+                                Female
+                            </label>
+                        </div>
                     </div>
 
                     <!-- Category Filter -->
@@ -308,6 +327,9 @@
                                 @if($product->category)
                                 <span>{{ $product->category->name }}</span>
                                 @endif
+                                @if($product->gender)
+                                <span>{{ $product->gender}}</span>
+                                @endif
                                 @if($product->brand)
                                 <span>• {{ $product->brand->name }}</span>
                                 @endif
@@ -357,6 +379,9 @@
                                         <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
                                             @if($product->category)
                                             <span>{{ $product->category->name }}</span>
+                                            @endif
+                                            @if($product->gender)
+                                            <span>{{ $product->gender}}</span>
                                             @endif
                                             @if($product->brand)
                                             <span>• {{ $product->brand->name }}</span>

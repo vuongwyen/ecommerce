@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Fashion Ecommerce')</title>
+    <title>@yield('title', 'Beautify')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
@@ -14,6 +14,7 @@
     <main>
         @yield('content')
     </main>
+    @livewire('partials.footer')
     @livewire('product-quick-view')
     @livewireScripts
 </body>

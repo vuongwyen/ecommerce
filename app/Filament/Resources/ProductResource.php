@@ -94,6 +94,13 @@ class ProductResource extends Resource
                             ->preload()
                             ->label('Thương hiệu sản phẩm'),
                     ]),
+                    Section::make('Giới tính')->schema([
+                        Select::make('gender')
+                            ->options([
+                                'male' => 'Nam',
+                                'female' => 'Nữ',
+                            ])
+                    ]),
 
                     Section::make('Status')->schema([
                         Toggle::make('in_stock')
@@ -127,6 +134,10 @@ class ProductResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->label('Tên sản phẩm'),
+                Tables\Columns\TextColumn::make('gender')
+                    ->sortable()
+                    ->searchable()
+                    ->label('Giới tính'),
                 Tables\Columns\TextColumn::make('slug')
                     ->sortable()
                     ->searchable()
