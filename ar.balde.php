@@ -209,21 +209,78 @@
 
             <!-- Sidebar -->
             <div class="w-full lg:w-1/4">
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-6 sticky top-24">
+                    <h3 class="font-bold text-lg mb-4">Popular Categories</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="flex justify-between items-center py-2 text-gray-700 hover:text-primary">
+                                <span>Technology</span>
+                                <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">24</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex justify-between items-center py-2 text-gray-700 hover:text-primary">
+                                <span>Design</span>
+                                <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">18</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex justify-between items-center py-2 text-gray-700 hover:text-primary">
+                                <span>Business</span>
+                                <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">15</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex justify-between items-center py-2 text-gray-700 hover:text-primary">
+                                <span>Health & Wellness</span>
+                                <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">12</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex justify-between items-center py-2 text-gray-700 hover:text-primary">
+                                <span>Productivity</span>
+                                <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">9</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
                 <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
                     <h3 class="font-bold text-lg mb-4">Featured Authors</h3>
                     <ul class="space-y-4">
-                        @foreach ($articles as $article)
                         <li>
-                            <div class="flex items-center space-x-3">
+                            <a href="#" class="flex items-center space-x-3">
                                 <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
                                     alt="Author"
                                     class="w-12 h-12 rounded-full object-cover">
                                 <div>
-                                    <h4 class="font-medium">{{$article->author->name}}</h4>
+                                    <h4 class="font-medium">Sarah Johnson</h4>
+                                    <p class="text-gray-500 text-sm">Tech Journalist</p>
                                 </div>
-                            </div>
+                            </a>
                         </li>
-                        @endforeach
+                        <li>
+                            <a href="#" class="flex items-center space-x-3">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                                    alt="Author"
+                                    class="w-12 h-12 rounded-full object-cover">
+                                <div>
+                                    <h4 class="font-medium">Michael Chen</h4>
+                                    <p class="text-gray-500 text-sm">Design Director</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center space-x-3">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                                    alt="Author"
+                                    class="w-12 h-12 rounded-full object-cover">
+                                <div>
+                                    <h4 class="font-medium">Emma Rodriguez</h4>
+                                    <p class="text-gray-500 text-sm">Business Analyst</p>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 

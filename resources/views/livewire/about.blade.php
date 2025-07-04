@@ -1,18 +1,96 @@
 <div>
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(26, 26, 46, 0.85), rgba(26, 26, 46, 0.9)), url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .value-card {
+            transition: all 0.3s ease;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #9C7CF6;
+        }
+
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 24px;
+            width: 2px;
+            height: calc(100% + 24px);
+            background: #9C7CF6;
+        }
+
+        .team-member {
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-social {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover .team-social {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .testimonial-card {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+        }
+
+        .stats-item {
+            border-right: 1px solid rgba(156, 124, 246, 0.2);
+        }
+
+        .stats-item:last-child {
+            border-right: none;
+        }
+    </style>
     <!-- Hero Section -->
     <section class="hero-section py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-5xl font-serif font-bold text-dark mb-6">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
                 Our Story of Style and Sustainability
             </h1>
-            <p class="text-xl text-dark/90 max-w-3xl mx-auto mb-8">
+            <p class="text-xl text-white/90 max-w-3xl mx-auto mb-8">
                 Since 2010, Beautify has been redefining fashion with ethically crafted, trend-setting designs that empower individuality.
             </p>
             <div class="flex justify-center space-x-4">
-                <a href="#" class="px-8 py-3 bg-primary text-dark font-medium rounded-lg hover:bg-purple-700 transition-colors">
+                <a href="#" class="px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-purple-700 transition-colors">
                     Explore Collections
                 </a>
-                <a href="#values" class="px-8 py-3 bg-dark text-dark font-medium rounded-lg hover:bg-gray-100 transition-colors">
+                <a href="#values" class="px-8 py-3 bg-white text-dark font-medium rounded-lg hover:bg-gray-100 transition-colors">
                     Our Values
                 </a>
             </div>

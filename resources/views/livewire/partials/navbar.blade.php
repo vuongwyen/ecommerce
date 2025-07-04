@@ -10,7 +10,7 @@
             </div>
 
             <!-- Navigation Links -->
-            <div class="hidden md:flex items-center space-x-16">
+            <div class="hidden md:flex items-center space-x-8">
                 <div class="relative group">
                     <a href="{{ route('product-list') }}" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Products</a>
                     <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
@@ -46,6 +46,9 @@
                             @endforeach
                         </ul>
                     </div>
+                </div>
+                <div class="relative group">
+                    <a href="{{ route('articles.index') }}" class="text-gray-700 hover:text-green-600 font-medium transition-colors">Articles</a>
                 </div>
                 <div class="relative group">
                     <p class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Support</p>
