@@ -87,7 +87,8 @@
 ## 🖼️ Screenshots
 
 ### **Customer-Facing Website**
-![Homepage](screenshots/homepage.png)
+![Homepage](https://github.com/user-attachments/assets/cf69c468-eb7d-47f1-819c-8a0b07f5d221)
+
 *SEO-optimized homepage with featured products and categories*
 
 ![Product Catalog](screenshots/product-catalog.png)
