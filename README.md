@@ -84,6 +84,33 @@
 
 ---
 
+## 🖼️ Screenshots
+
+### **Customer-Facing Website**
+![Homepage](screenshots/homepage.png)
+*SEO-optimized homepage with featured products and categories*
+
+![Product Catalog](screenshots/product-catalog.png)
+*Responsive product catalog with search and filtering*
+
+![Product Detail](screenshots/product-detail.png)
+*Product detail page with image gallery and reviews*
+
+![Shopping Cart](screenshots/shopping-cart.png)
+*Shopping cart with real-time updates*
+
+### **Admin Panel (Filament)**
+![Admin Dashboard](screenshots/admin-dashboard.png)
+*Comprehensive admin dashboard with analytics*
+
+![Product Management](screenshots/product-management.png)
+*Product management interface*
+
+![Order Management](screenshots/order-management.png)
+*Order processing and management*
+
+--
+
 ## 👥 User & Admin Management
 
 ### **Customer Features**
