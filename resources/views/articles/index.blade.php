@@ -125,10 +125,9 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Articles Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                    @foreach ($articles as $article)
+                    @foreach ($articles->take(4) as $article)
                     <div class="article-card bg-white">
                         <div class="relative">
                             <a href="{{ route('articles.show', $article->slug) }}">
@@ -170,9 +169,11 @@
                     </div>
                     @endforeach
                 </div>
-
                 <!-- Pagination -->
                 <div class="mt-12">
+                    {{ $articles->links() }}
+                </div>
+                <!-- <div class="mt-12">
                     <div class="flex justify-center">
                         <nav class="pagination">
                             <ul class="flex">
@@ -204,7 +205,7 @@
                             </ul>
                         </nav>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Sidebar -->

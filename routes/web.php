@@ -26,9 +26,7 @@ Route::get('/', HomePage::class)->name('home');
 // Product routes
 Route::get('/products', ProductList::class)->name('product-list');
 Route::get('/products/{slug}', ProductDetail::class)->name('product-detail');
-// Route::get('/new-arrivals', function () {
-//     return view('new-arrivals');
-// })->name('new-arrivals');
+Route::get('/new-arrivals', ProductList::class)->name('new-arrivals');
 
 // Article routes
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');

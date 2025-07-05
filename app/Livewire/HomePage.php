@@ -8,6 +8,9 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Color;
 use App\Models\Size;
+use App\Models\Article;
+use App\Models\Review;
+use Illuminate\Support\Facades\View;
 
 class HomePage extends Component
 {
@@ -112,100 +115,106 @@ class HomePage extends Component
 
     public function render()
     {
-        $query = Product::query()
-            ->with(['category', 'brand', 'colors', 'sizes'])
-            ->where('is_active', true);
+        // SEO Data
+        $seo = [
+            'title' => 'BEAUTIFY - Premium Fashion & Beauty Products | Free Shipping',
+            'description' => 'Discover the latest trends in fashion, beauty, and lifestyle. Shop premium products with free shipping, easy returns, and exceptional customer service. Join thousands of satisfied customers.',
+            'keywords' => 'fashion, beauty, clothing, accessories, makeup, skincare, lifestyle, online shopping, free shipping',
+            'canonical' => url('/'),
+            'og_title' => 'BEAUTIFY - Premium Fashion & Beauty Products',
+            'og_description' => 'Discover the latest trends in fashion, beauty, and lifestyle. Shop premium products with free shipping and easy returns.',
+            'og_image' => asset('images/og-homepage.jpg'),
+            'og_url' => url('/'),
+            'twitter_card' => 'summary_large_image',
+            'twitter_title' => 'BEAUTIFY - Premium Fashion & Beauty Products',
+            'twitter_description' => 'Discover the latest trends in fashion, beauty, and lifestyle. Shop premium products with free shipping.',
+            'twitter_image' => asset('images/og-homepage.jpg'),
+        ];
 
-        // Apply search filter
-        if ($this->search) {
-            $query->where(function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%');
-            });
-        }
+        // Schema.org Website markup
+        $schema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'name' => 'BEAUTIFY',
+            'url' => url('/'),
+            'description' => 'Premium fashion and beauty products online store',
+            'potentialAction' => [
+                '@type' => 'SearchAction',
+                'target' => url('/products?search={search_term_string}'),
+                'query-input' => 'required name=search_term_string'
+            ],
+            'sameAs' => [
+                'https://facebook.com/beautify',
+                'https://twitter.com/beautify',
+                'https://instagram.com/beautify',
+                'https://pinterest.com/beautify'
+            ]
+        ];
 
-        // Apply category filter
-        if ($this->selectedCategory) {
-            $query->where('category_id', $this->selectedCategory);
-        }
+        // Featured Categories
+        $featuredCategories = Category::where('is_active', true)
+            ->withCount('products')
+            ->orderBy('products_count', 'desc')
+            ->take(6)
+            ->get();
 
-        // Apply brand filter
-        if ($this->selectedBrand) {
-            $query->where('brand_id', $this->selectedBrand);
-        }
+        // Featured Products
+        $featuredProducts = Product::where('is_featured', true)
+            ->where('is_active', true)
+            ->with(['category', 'brand', 'reviews'])
+            ->take(8)
+            ->get();
 
-        // Apply color filter
-        if (!empty($this->selectedColors)) {
-            $query->whereHas('colors', function ($q) {
-                $q->whereIn('colors.id', $this->selectedColors);
-            });
-        }
+        // New Arrivals (Latest Products)
+        $newArrivals = Product::where('is_active', true)
+            ->with(['category', 'brand', 'reviews'])
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
 
-        // Apply size filter
-        if (!empty($this->selectedSizes)) {
-            $query->whereHas('sizes', function ($q) {
-                $q->whereIn('sizes.id', $this->selectedSizes);
-            });
-        }
+        // Products on Sale
+        $saleProducts = Product::where('on_sale', true)
+            ->where('is_active', true)
+            ->with(['category', 'brand', 'reviews'])
+            ->take(6)
+            ->get();
 
-        // Apply price range filter
-        if ($this->priceRange) {
-            switch ($this->priceRange) {
-                case '0-50':
-                    $query->whereBetween('price', [0, 50]);
-                    break;
-                case '50-100':
-                    $query->whereBetween('price', [50, 100]);
-                    break;
-                case '100-200':
-                    $query->whereBetween('price', [100, 200]);
-                    break;
-                case '200+':
-                    $query->where('price', '>=', 200);
-                    break;
-            }
-        } else {
-            // Apply custom price range
-            $query->whereBetween('price', [$this->minPrice, $this->maxPrice]);
-        }
+        // Latest Articles
+        $latestArticles = Article::where('status', 'published')
+            ->where('published_at', '<=', now())
+            ->with('author')
+            ->orderBy('published_at', 'desc')
+            ->take(3)
+            ->get();
 
-        // Apply rating filter (simulated for now)
-        if ($this->ratingFilter) {
-            // This would need to be implemented with actual review system
-            // For now, we'll just pass the filter
-        }
+        // Customer Reviews (Featured)
+        $featuredReviews = Review::where('is_approved', true)
+            ->where('is_verified_purchase', true)
+            ->with(['user', 'product'])
+            ->orderBy('rating', 'desc')
+            ->take(6)
+            ->get();
 
-        // Apply sorting
-        switch ($this->sortBy) {
-            case 'price-low':
-                $query->orderBy('price', 'asc');
-                break;
-            case 'price-high':
-                $query->orderBy('price', 'desc');
-                break;
-            case 'name':
-                $query->orderBy('name', 'asc');
-                break;
-            case 'newest':
-            default:
-                $query->orderBy('created_at', 'desc');
-                break;
-        }
+        // Statistics
+        $stats = [
+            'total_products' => Product::where('is_active', true)->count(),
+            'total_categories' => Category::where('is_active', true)->count(),
+            'total_reviews' => Review::where('is_approved', true)->count(),
+            'avg_rating' => Review::where('is_approved', true)->avg('rating') ?? 4.5,
+        ];
 
-        $products = $query->paginate(12);
-        $categories = Category::where('is_active', true)->get();
-        $randomProducts = Product::inRandomOrder()->take(4)->get();
-        $brands = Brand::where('is_active', true)->get();
-        $colors = Color::where('is_active', true)->get();
-        $sizes = Size::where('is_active', true)->get();
+        // Pass SEO data to the layout
+        View::share('seo', $seo);
+        View::share('schema', json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 
-        return view('livewire.home-page', [
-            'products' => $products,
-            'randomProducts' => $randomProducts,
-            'categories' => $categories,
-            'brands' => $brands,
-            'colors' => $colors,
-            'sizes' => $sizes,
-        ]);
+        return view('livewire.home-page', compact(
+            'featuredCategories',
+            'featuredProducts',
+            'newArrivals',
+            'saleProducts',
+            'latestArticles',
+            'featuredReviews',
+            'stats'
+        ));
     }
 }
