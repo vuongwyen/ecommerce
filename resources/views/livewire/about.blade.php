@@ -76,6 +76,30 @@
         .stats-item:last-child {
             border-right: none;
         }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #9C7CF6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
     <!-- Hero Section -->
     <section class="hero-section py-24">
@@ -201,19 +225,6 @@
             <div>
                 <!-- Item -->
                 <div class="group relative flex gap-x-5">
-                    <!-- Icon -->
-                    <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
-                        <div class="relative z-10 size-6 flex justify-center items-center">
-                            <svg class="shrink-0 size-6 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 12h.01" />
-                                <path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                                <path d="M22 13a18.15 18.15 0 0 1-20 0" />
-                                <rect width="20" height="14" x="2" y="6" rx="2" />
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- End Icon -->
-
                     <!-- Right Content -->
                     <div class="grow pb-8 group-last:pb-0">
                         <div class="timeline-item">
@@ -232,19 +243,6 @@
 
                 <!-- Item -->
                 <div class="group relative flex gap-x-5">
-                    <!-- Icon -->
-                    <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
-                        <div class="relative z-10 size-6 flex justify-center items-center">
-                            <svg class="shrink-0 size-6 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 12h.01" />
-                                <path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                                <path d="M22 13a18.15 18.15 0 0 1-20 0" />
-                                <rect width="20" height="14" x="2" y="6" rx="2" />
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- End Icon -->
-
                     <!-- Right Content -->
                     <div class="grow pb-8 group-last:pb-0">
                         <div class="timeline-item">
@@ -263,19 +261,6 @@
 
                 <!-- Item -->
                 <div class="group relative flex gap-x-5">
-                    <!-- Icon -->
-                    <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
-                        <div class="relative z-10 size-6 flex justify-center items-center">
-                            <svg class="shrink-0 size-6 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 12h.01" />
-                                <path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                                <path d="M22 13a18.15 18.15 0 0 1-20 0" />
-                                <rect width="20" height="14" x="2" y="6" rx="2" />
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- End Icon -->
-
                     <!-- Right Content -->
                     <div class="grow pb-8 group-last:pb-0">
                         <div class="timeline-item">
@@ -294,19 +279,6 @@
 
                 <!-- Item -->
                 <div class="group relative flex gap-x-5">
-                    <!-- Icon -->
-                    <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
-                        <div class="relative z-10 size-6 flex justify-center items-center">
-                            <svg class="shrink-0 size-6 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 12h.01" />
-                                <path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                                <path d="M22 13a18.15 18.15 0 0 1-20 0" />
-                                <rect width="20" height="14" x="2" y="6" rx="2" />
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- End Icon -->
-
                     <!-- Right Content -->
                     <div class="grow pb-8 group-last:pb-0">
                         <div class="timeline-item">
@@ -325,19 +297,6 @@
 
                 <!-- Item -->
                 <div class="group relative flex gap-x-5">
-                    <!-- Icon -->
-                    <div class="relative group-last:after:hidden after:absolute after:top-8 after:bottom-2 after:start-3 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
-                        <div class="relative z-10 size-6 flex justify-center items-center">
-                            <svg class="shrink-0 size-6 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 12h.01" />
-                                <path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                                <path d="M22 13a18.15 18.15 0 0 1-20 0" />
-                                <rect width="20" height="14" x="2" y="6" rx="2" />
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- End Icon -->
-
                     <!-- Right Content -->
                     <div class="grow pb-8 group-last:pb-0">
                         <div class="timeline-item">
@@ -562,4 +521,27 @@
             </p>
         </div>
     </section>
+
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </div>
