@@ -10,19 +10,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use App\Services\CartService;
 
 class CheckoutController extends Controller
 {
+    protected $cartService;
+
     // Require authentication for all checkout actions
-    public function __construct()
+    public function __construct(CartService $cartService)
     {
         $this->middleware('auth');
+        $this->cartService = $cartService;
     }
 
     // Show the checkout page with cart summary and shipping/payment forms
     public function index()
     {
-        $cart = Session::get('cart', []);
+        $cart = $this->cartService->getCart();
 
         if (empty($cart)) {
             // Redirect if cart is empty
@@ -70,7 +74,7 @@ class CheckoutController extends Controller
             'payment_method' => 'required|in:cod,paypal', // Accepts COD and PayPal
         ]);
 
-        $cart = Session::get('cart', []);
+        $cart = $this->cartService->getCart();
 
         if (empty($cart)) {
             // Redirect if cart is empty
@@ -139,8 +143,8 @@ class CheckoutController extends Controller
 
             DB::commit();
 
-            // Clear the cart from session
-            Session::forget('cart');
+            // Clear the cart using CartService
+            $this->cartService->clearCart();
 
             // If COD, go directly to success page; otherwise, go to payment page
             if ($request->payment_method === 'cod') {
@@ -191,7 +195,7 @@ class CheckoutController extends Controller
         $paymentSuccess = rand(1, 10) <= 9;
 
         if ($paymentSuccess) {
-            // Mark order as paid and processing
+            // Update order status
             $order->update([
                 'payment_status' => 'paid',
                 'status' => 'processing',
@@ -199,11 +203,11 @@ class CheckoutController extends Controller
 
             return redirect()->route('checkout.success', $order->id);
         } else {
-            return back()->with('error', 'Payment failed. Please try again with different card details.');
+            return back()->with('error', 'Payment failed. Please try again.');
         }
     }
 
-    // Show the order success/confirmation page
+    // Show the success page after successful checkout
     public function success($orderId)
     {
         $order = Order::with(['items.product', 'address'])->findOrFail($orderId);
@@ -213,7 +217,6 @@ class CheckoutController extends Controller
             abort(403);
         }
 
-        // Render the order success view
         return view('checkout.success', compact('order'));
     }
 }

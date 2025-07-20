@@ -5,6 +5,7 @@ namespace App\Livewire\Partials;
 use Livewire\Component;
 use Illuminate\Support\Facades\Session;
 use App\Models\Category;
+use App\Services\CartService;
 
 class Navbar extends Component
 {
@@ -17,8 +18,8 @@ class Navbar extends Component
 
     public function getCartCountProperty()
     {
-        $cart = Session::get('cart', []);
-        return array_sum(array_column($cart, 'quantity'));
+        $cartService = app(CartService::class);
+        return $cartService->getCartCount();
     }
 
     public function render()

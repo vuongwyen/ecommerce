@@ -5,13 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
+use App\Services\CartService;
 
 class CartController extends Controller
 {
+    protected $cartService;
+
+    public function __construct(CartService $cartService)
+    {
+        $this->cartService = $cartService;
+    }
+
     // Display the cart page with all products in the session cart
     public function index()
     {
-        $cart = Session::get('cart', []); // Retrieve cart from session (or empty array)
+        $cart = $this->cartService->getCart();
         $products = [];
         $total = 0;
 
@@ -42,27 +52,12 @@ class CartController extends Controller
             'color' => 'nullable|string',
         ]);
 
-        $productId = $request->product_id;
-        $quantity = $request->quantity;
-        $size = $request->size;
-        $color = $request->color;
-
-        $cart = Session::get('cart', []);
-
-        // If product already in cart, increase quantity
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity'] += $quantity;
-        } else {
-            // Otherwise, add new product entry
-            $cart[$productId] = [
-                'quantity' => $quantity,
-                'size' => $size,
-                'color' => $color,
-            ];
-        }
-
-        // Save updated cart to session
-        Session::put('cart', $cart);
+        $this->cartService->addToCart(
+            $request->product_id,
+            $request->quantity,
+            $request->size,
+            $request->color
+        );
 
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
@@ -75,16 +70,7 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $productId = $request->product_id;
-        $quantity = $request->quantity;
-
-        $cart = Session::get('cart', []);
-
-        // If product exists in cart, update its quantity
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity'] = $quantity;
-            Session::put('cart', $cart);
-        }
+        $this->cartService->updateQuantity($request->product_id, $request->quantity);
 
         return redirect()->back()->with('success', 'Cart updated successfully!');
     }
@@ -96,14 +82,7 @@ class CartController extends Controller
             'product_id' => 'required|exists:products,id',
         ]);
 
-        $productId = $request->product_id;
-        $cart = Session::get('cart', []);
-
-        // If product exists in cart, remove it
-        if (isset($cart[$productId])) {
-            unset($cart[$productId]);
-            Session::put('cart', $cart);
-        }
+        $this->cartService->removeFromCart($request->product_id);
 
         return redirect()->back()->with('success', 'Product removed from cart!');
     }
@@ -111,7 +90,8 @@ class CartController extends Controller
     // Clear the entire cart
     public function clear()
     {
-        Session::forget('cart'); // Remove cart from session
+        $this->cartService->clearCart();
+
         return redirect()->back()->with('success', 'Cart cleared successfully!');
     }
 }

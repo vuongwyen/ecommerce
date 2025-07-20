@@ -11,6 +11,7 @@ use App\Livewire\Careers;
 use App\Livewire\About;
 use App\Livewire\Privacypolicy;
 use App\Livewire\Termsofservice;
+use App\Livewire\WishlistPage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -19,6 +20,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminAuthController;
+use Illuminate\Support\Facades\Auth;
 
 // Public routes
 Route::get('/', HomePage::class)->name('home');
@@ -52,6 +55,13 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Admin login routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('login', [AdminAuthController::class, 'showLogin'])->name('login');
+    Route::post('login', [AdminAuthController::class, 'login']);
+    Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout');
+});
+
 // Cart routes
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
@@ -72,6 +82,35 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->get('/account', [AccountController::class, 'info'])->name('account.info');
 Route::middleware('auth')->get('/orders/history', [OrderController::class, 'history'])->name('orders.history');
 Route::middleware('auth')->get('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'show'])->name('orders.show');
+Route::middleware('auth')->group(function () {
+    Route::get('/wishlist', \App\Livewire\WishlistPage::class)->name('wishlist');
+});
+
+// Test routes for session verification
+Route::get('/test/user-session', function () {
+    return response()->json([
+        'user_authenticated' => Auth::guard('web')->check(),
+        'user_id' => Auth::guard('web')->id(),
+        'user_name' => Auth::guard('web')->user()?->name,
+        'admin_authenticated' => Auth::guard('admin')->check(),
+        'admin_id' => Auth::guard('admin')->id(),
+        'admin_name' => Auth::guard('admin')->user()?->name,
+        'session_id' => session()->getId(),
+    ]);
+})->name('test.user-session');
+
+Route::get('/test/admin-session', function () {
+    return response()->json([
+        'user_authenticated' => Auth::guard('web')->check(),
+        'user_id' => Auth::guard('web')->id(),
+        'user_name' => Auth::guard('web')->user()?->name,
+        'admin_authenticated' => Auth::guard('admin')->check(),
+        'admin_id' => Auth::guard('admin')->id(),
+        'admin_name' => Auth::guard('admin')->user()?->name,
+        'session_id' => session()->getId(),
+    ]);
+})->name('test.admin-session');
+
 // Test route for Tailwind CSS v4.1 and Preline v3.1.0
 Route::get('/test', function () {
     return view('test-tailwind-preline');

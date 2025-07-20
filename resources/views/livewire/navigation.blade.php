@@ -28,11 +28,8 @@
                         </svg>
                         <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
                             @php
-                            $cartCount = 0;
-                            $cart = session('cart', []);
-                            foreach($cart as $item) {
-                            $cartCount += $item['quantity'];
-                            }
+                            $cartService = app(\App\Services\CartService::class);
+                            $cartCount = $cartService->getCartCount();
                             @endphp
                             {{ $cartCount }}
                         </span>

@@ -17,11 +17,11 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
 
-    protected static ?string $navigationGroup = 'Quản lý người dùng';
+    protected static ?string $navigationGroup = 'User activity';
 
-    protected static ?string $navigationLabel = 'Tài khoản';
+    protected static ?string $navigationLabel = 'Account management';
 
     protected static ?string $recordTitleAttribute = 'name';
 

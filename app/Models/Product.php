@@ -70,6 +70,11 @@ class Product extends Model
         return $this->approvedReviews()->count();
     }
 
+    public function suggestedProducts()
+    {
+        return $this->belongsToMany(Product::class, 'product_suggestions', 'product_id', 'suggested_product_id');
+    }
+
     /**
      * Get the formatted image URL for a given image path
      */

@@ -27,11 +27,11 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-cube';
 
-    protected static ?string $navigationGroup = 'Quản lý hàng hóa';
+    protected static ?string $navigationGroup = 'Store management';
 
-    protected static ?string $navigationLabel = 'Sản phẩm';
+    protected static ?string $navigationLabel = 'Products management';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -118,6 +118,14 @@ class ProductResource extends Resource
                         Toggle::make('on_sale')
                             ->required(),
                     ])
+                ])->columnSpan(1),
+                Section::make('Sản phẩm gợi ý')->schema([
+                    Select::make('suggestedProducts')
+                        ->label('Sản phẩm gợi ý')
+                        ->multiple()
+                        ->relationship('suggestedProducts', 'name')
+                        ->preload()
+                        ->searchable(),
                 ])->columnSpan(1)
             ])->columns('2');
     }

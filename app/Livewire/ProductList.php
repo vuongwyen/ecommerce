@@ -9,6 +9,7 @@ use App\Models\Color;
 use App\Models\Size;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class ProductList extends Component
 {
@@ -196,10 +197,17 @@ class ProductList extends Component
             $query->whereBetween('price', [$this->minPrice, $this->maxPrice]);
         }
 
-        // Apply rating filter (simulated for now)
+        // Apply rating filter with backend filtering
         if ($this->ratingFilter) {
-            // This would need to be implemented with actual review system
-            // For now, we'll just pass the filter
+            $minRating = (int) $this->ratingFilter;
+
+            $query->leftJoin('reviews', function ($join) {
+                $join->on('products.id', '=', 'reviews.product_id')
+                    ->where('reviews.is_approved', true);
+            })
+                ->groupBy('products.id')
+                ->havingRaw('AVG(reviews.rating) >= ?', [$minRating])
+                ->orHavingRaw('COUNT(reviews.id) = 0'); // Include products with no reviews
         }
 
         // Apply sorting
@@ -213,6 +221,16 @@ class ProductList extends Component
             case 'name':
                 $query->orderBy('name', 'asc');
                 break;
+            case 'rating':
+                // Sort by average rating (products with no reviews will be last)
+                $query->leftJoin('reviews as sort_reviews', function ($join) {
+                    $join->on('products.id', '=', 'sort_reviews.product_id')
+                        ->where('sort_reviews.is_approved', true);
+                })
+                    ->groupBy('products.id')
+                    ->orderByRaw('AVG(sort_reviews.rating) DESC NULLS LAST')
+                    ->orderBy('products.created_at', 'desc'); // Secondary sort by newest
+                break;
             case 'newest':
             default:
                 $query->orderBy('created_at', 'desc');
@@ -225,6 +243,10 @@ class ProductList extends Component
         }
 
         $products = $query->paginate(12);
+
+        // Load average ratings for products
+        $this->loadAverageRatings($products);
+
         $categories = Category::where('is_active', true)->get();
         $brands = Brand::where('is_active', true)->get();
         $colors = Color::where('is_active', true)->get();
@@ -237,5 +259,32 @@ class ProductList extends Component
             'colors' => $colors,
             'sizes' => $sizes,
         ]);
+    }
+
+    /**
+     * Load average ratings for products to display in the UI
+     */
+    private function loadAverageRatings($products)
+    {
+        $productIds = $products->pluck('id');
+
+        $averageRatings = DB::table('reviews')
+            ->select(
+                'product_id',
+                DB::raw('AVG(rating) as average_rating'),
+                DB::raw('COUNT(*) as review_count')
+            )
+            ->where('is_approved', true)
+            ->whereIn('product_id', $productIds)
+            ->groupBy('product_id')
+            ->get()
+            ->keyBy('product_id');
+
+        // Add average rating data to each product
+        foreach ($products as $product) {
+            $ratingData = $averageRatings->get($product->id);
+            $product->average_rating = $ratingData ? round($ratingData->average_rating, 1) : 0;
+            $product->review_count = $ratingData ? $ratingData->review_count : 0;
+        }
     }
 }

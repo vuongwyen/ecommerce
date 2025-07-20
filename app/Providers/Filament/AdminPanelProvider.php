@@ -3,6 +3,9 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Resources\OrderResource\Widgets\OrderStats;
+use App\Filament\Widgets\TotalSalesThisMonthWidget;
+use App\Filament\Widgets\TopProductsWidget;
+use App\Filament\Widgets\NewUsersWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -19,6 +22,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Http\Middleware\AdminAccess;
+use App\Http\Middleware\AdminSessionMiddleware;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -29,6 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->authGuard('admin')
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -42,11 +47,14 @@ class AdminPanelProvider extends PanelProvider
                 //Widgets\AccountWidget::class,
                 //Widgets\FilamentInfoWidget::class,
                 OrderStats::class,
+                TotalSalesThisMonthWidget::class,
+                TopProductsWidget::class,
+                NewUsersWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
-                StartSession::class,
+                AdminSessionMiddleware::class, // Use custom admin session middleware
                 AuthenticateSession::class,
                 ShareErrorsFromSession::class,
                 VerifyCsrfToken::class,

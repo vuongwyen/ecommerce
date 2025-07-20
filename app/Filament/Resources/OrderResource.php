@@ -34,9 +34,9 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
-    protected static ?string $navigationGroup = 'Quản lý bán hàng';
+    protected static ?string $navigationGroup = 'User activity';
 
-    protected static ?string $navigationLabel = 'Quản lý giỏ hàng';
+    protected static ?string $navigationLabel = 'Cart management';
 
     public static function form(Form $form): Form
     {

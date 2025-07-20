@@ -52,6 +52,16 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function wishlist()
+    {
+        return $this->belongsToMany(Product::class, 'wishlists')->withTimestamps();
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
     public function isAdmin()
     {
         return $this->role === 'admin';

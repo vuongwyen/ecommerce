@@ -68,9 +68,10 @@
                 @foreach($featuredCategories as $category)
                 <a href="{{ route('product-list', ['category' => $category->slug]) }}"
                     class="group block text-center p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all duration-300">
-                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                    <img src="{{$category->image}}" alt="" class="w-32 h-32 mx-auto mb-4 rounded-full group-hover:scale-105 transition-transform duration-300">
+                    <!-- <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white text-2xl font-bold">
                         {{ strtoupper(substr($category->name, 0, 1)) }}
-                    </div>
+                    </div> -->
                     <h3 class="font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">{{ $category->name }}</h3>
                     <p class="text-sm text-gray-500 mt-1">{{ $category->products_count }} Products</p>
                 </a>

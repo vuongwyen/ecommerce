@@ -15,6 +15,9 @@
                     <a href="{{ route('orders.history') }}" class="block px-4 py-2 rounded-md {{ request()->routeIs('orders.history') ? 'bg-indigo-50 text-indigo-700 font-semibold' : 'text-gray-700 hover:bg-gray-100' }}">
                         Order History
                     </a>
+                    <a href="{{ route('wishlist') }}" class="block px-4 py-2 rounded-md {{ request()->routeIs('wishlist') ? 'bg-indigo-50 text-indigo-700 font-semibold' : 'text-gray-700 hover:bg-gray-100' }}">
+                        Wish List
+                    </a>
                 </nav>
             </div>
         </aside>

@@ -16,12 +16,8 @@ class AdminAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
-
-        if (Auth::user()->role !== 'admin') {
-            abort(403, 'Access denied. Admin role required.');
+        if (!Auth::guard('admin')->check()) {
+            return redirect('/admin/login');
         }
 
         return $next($request);

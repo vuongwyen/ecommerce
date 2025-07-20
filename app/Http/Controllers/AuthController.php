@@ -7,9 +7,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Cart;
+use App\Services\CartService;
 
 class AuthController extends Controller
 {
+    protected $cartService;
+
+    public function __construct(CartService $cartService)
+    {
+        $this->cartService = $cartService;
+    }
+
     public function showLogin()
     {
         return view('auth.login');
@@ -35,6 +44,10 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
+
+            // Merge session cart with DB cart using CartService
+            $this->cartService->mergeSessionCartWithDb();
+
             return redirect()->intended('/');
         }
 
@@ -68,6 +81,9 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        // Clear session cart but keep DB cart intact
+        session()->forget('cart');
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

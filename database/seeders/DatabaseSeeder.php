@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         // Run our custom seeders
         $this->call([
+            AdminSeeder::class,
             CategorySeeder::class,
             BrandSeeder::class,
             ProductSeeder::class,

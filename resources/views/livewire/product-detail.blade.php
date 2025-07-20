@@ -204,6 +204,7 @@
                                         </svg>
                                     </button>
                                 </div>
+                                <livewire:wishlist-button :product="$product" :key="$product->id" class="mb-2" style="background: linear-gradient(90deg, #f3e7e9 0%, #e3eeff 100%); border: 1px solid #d1d5db; color: #7c3aed; font-weight: 600; border-radius: 0.5rem; padding: 0.5rem 1rem;" />
                             </div>
 
                             <!-- Action Buttons -->

@@ -422,7 +422,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Made with ❤️ for the Laravel community**
-
 <p align="center">
   <strong>Ready to build your next e-commerce empire? 🚀</strong>
 </p>
+

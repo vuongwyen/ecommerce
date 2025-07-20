@@ -58,6 +58,9 @@
                                 <button wire:click="$set('sortBy', 'name')" class="w-full flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 {{ $sortBy === 'name' ? 'bg-purple-50 text-purple-600' : '' }}">
                                     Name A-Z
                                 </button>
+                                <button wire:click="$set('sortBy', 'rating')" class="w-full flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 {{ $sortBy === 'rating' ? 'bg-purple-50 text-purple-600' : '' }}">
+                                    Highest Rated
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -314,12 +317,18 @@
                                 <div class="flex items-center space-x-1">
                                     <div class="flex text-yellow-400">
                                         @for($i = 1; $i <= 5; $i++)
+                                            @if($i <=$product->average_rating)
                                             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                                             </svg>
+                                            @else
+                                            <svg class="w-4 h-4 text-gray-300" viewBox="0 0 20 20">
+                                                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                            </svg>
+                                            @endif
                                             @endfor
                                     </div>
-                                    <span class="text-sm text-gray-600">({{ rand(10, 200) }})</span>
+                                    <span class="text-sm text-gray-600">({{ $product->review_count }})</span>
                                 </div>
                             </div>
 
@@ -374,6 +383,7 @@
                                                 {{ $product->name }}
                                             </a>
                                         </h3>
+                                        <livewire:wishlist-button :product="$product" :key="$product->id" class="mb-2" style="background: linear-gradient(90deg, #f3e7e9 0%, #e3eeff 100%); border: 1px solid #d1d5db; color: #7c3aed; font-weight: 600; border-radius: 0.5rem; padding: 0.5rem 1rem;" />
                                         <p class="text-gray-600 text-sm mb-3 line-clamp-2">{{ $product->description }}</p>
 
                                         <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
@@ -391,12 +401,18 @@
                                         <div class="flex items-center space-x-1 mb-4">
                                             <div class="flex text-yellow-400">
                                                 @for($i = 1; $i <= 5; $i++)
+                                                    @if($i <=$product->average_rating)
                                                     <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                                                     </svg>
+                                                    @else
+                                                    <svg class="w-4 h-4 text-gray-300" viewBox="0 0 20 20">
+                                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                    </svg>
+                                                    @endif
                                                     @endfor
                                             </div>
-                                            <span class="text-sm text-gray-600">({{ rand(10, 200) }} reviews)</span>
+                                            <span class="text-sm text-gray-600">({{ $product->review_count }} reviews)</span>
                                         </div>
                                     </div>
 

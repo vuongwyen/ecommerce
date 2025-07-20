@@ -19,11 +19,11 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
 
-    protected static ?string $navigationGroup = 'Quản lý hàng hóa';
+    protected static ?string $navigationGroup = 'Store management';
 
-    protected static ?string $navigationLabel = 'Danh mục';
+    protected static ?string $navigationLabel = 'Category management';
 
     protected static ?string $recordTitleAttribute = 'name';
 

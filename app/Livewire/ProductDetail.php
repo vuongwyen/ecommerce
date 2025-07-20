@@ -211,21 +211,14 @@ class ProductDetail extends Component
             'quantity' => 'required|integer|min:1|max:10',
         ]);
 
-        $cart = session()->get('cart', []);
-        $productId = $this->product->id;
+        $cartService = app(\App\Services\CartService::class);
+        $cartService->addToCart(
+            $this->product->id,
+            $this->quantity,
+            $this->selectedSize,
+            $this->selectedColor
+        );
 
-        // Check if product already exists in cart
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity'] += $this->quantity;
-        } else {
-            $cart[$productId] = [
-                'quantity' => $this->quantity,
-                'size' => $this->selectedSize,
-                'color' => $this->selectedColor,
-            ];
-        }
-
-        session()->put('cart', $cart);
         session()->flash('success', 'Product added to cart successfully!');
 
         // Reset quantity
